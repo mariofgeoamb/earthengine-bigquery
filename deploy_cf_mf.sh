@@ -18,13 +18,13 @@ cf_fire="polyfire-gen2"
 
 echo "Deploying NDVI CF"
 
-cd ~/earth-engine-on-bigquery/src/cloud-functions/ndvi
+cd ~/earth-engine-on-bigquery/src/cloud-functions_mf/ndvi
 
 gcloud functions deploy ${cf_ndvi} --entry-point get_ndvi_month --runtime python39 --trigger-http --allow-unauthenticated --set-env-vars SERVICE_ACCOUNT=${ee_sa} --project ${project_id} --service-account ${ee_sa} --gen2 --region ${REGION} --run-service-account ${ee_sa} --memory 256MB
 
 echo "Deploying Rainfall CF"
 
-cd ~/earth-engine-on-bigquery/src/cloud-functions/rainfall_mf
+cd ~/earth-engine-on-bigquery/src/cloud-functions_mf/rainfall_mf
 
 gcloud functions deploy ${cf_rainfall} --entry-point get_rainfall_month --runtime python39 --trigger-http --allow-unauthenticated --set-env-vars SERVICE_ACCOUNT=${ee_sa} --project ${project_id} --service-account ${ee_sa} --gen2 --region ${REGION} --run-service-account ${ee_sa} --memory 256MB
 
