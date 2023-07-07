@@ -90,7 +90,7 @@ $(gcloud config get-value project) \
 --member='serviceAccount:'${serviceAccountId} \
 --role='roles/run.admin'
 
-echo "export ee_sa=${ee_sa}" >> ~/earth-engine-on-bigquery/config_mf.sh
+echo "export ee_sa=${ee_sa}" >> ~/earthengine-bigquery/config_mf.sh
 
 echo ""
 echo " NOW sign up service account ${ee_sa} at https://signup.earthengine.google.com/#!/service_accounts "
