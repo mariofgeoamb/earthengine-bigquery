@@ -42,13 +42,11 @@ def farm_temp_calc(farm_aoi,year,month):
   startDate = first_date.strftime("%Y-%m-%d")
   last_date = datetime(year, month, last)
   endDate = last_date.strftime("%Y-%m-%d")
-  dataset = ee.ImageCollection("ECMWF/ERA5_LAND/MONTHLY").filter(ee.Filter.date(startDate, endDate)).select('temperature_2m').first().subtract(273.15)
-
-
-  tempValue = dataset.reduceRegion(**{
+  dataset = ee.ImageCollection('JAXA/GPM_L3/GSMaP/v6/operational').filter(ee.Filter.date(startDate, endDate)).select('hourlyPrecipRate').sum()
+  rainfallValue = dataset.reduceRegion(**{
     'geometry': farm_aoi,
     'reducer': ee.Reducer.mean(),
-    'scale': 10
-  }).get('temperature_2m')
+    'scale': 11132
+  }).get('hourlyPrecipRate')
   
-  return tempValue
+  return rainfallValue

@@ -100,7 +100,7 @@ $(gcloud config get-value project) \
 
 
 endpoint_ndvi=$(gcloud functions describe ${cf_ndvi} --region=us-central1 --format=json | jq -r '.httpsTrigger.url')
-endpoint_temp=$(gcloud functions describe ${cf_temp} --region=us-central1 --format=json | jq -r '.httpsTrigger.url')
+endpoint_rainfall=$(gcloud functions describe ${cf_temp} --region=us-central1 --format=json | jq -r '.httpsTrigger.url')
 
 
 bq mk -d gee
@@ -113,7 +113,7 @@ build_sql="CREATE OR REPLACE FUNCTION gee.get_poly_ndvi_month(farm_aoi STRING, y
     
 bq query --use_legacy_sql=false ${build_sql}
 
-build_sql="CREATE OR REPLACE FUNCTION gee.get_poly_temp_month(farm_aoi STRING, year int64, month int64) RETURNS STRING REMOTE WITH CONNECTION \`${project_id}.us.gcf-ee-conn\` OPTIONS ( endpoint = '${endpoint_temp}')"
+build_sql="CREATE OR REPLACE FUNCTION gee.get_poly_temp_month(farm_aoi STRING, year int64, month int64) RETURNS STRING REMOTE WITH CONNECTION \`${project_id}.us.gcf-ee-conn\` OPTIONS ( endpoint = '${endpoint_rainfall}')"
 
     
 bq query --use_legacy_sql=false ${build_sql}

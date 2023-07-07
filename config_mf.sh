@@ -7,10 +7,10 @@
 # create the project
 # attach a billing id (needs to have permission)
 # and provision resources
-export USER_EMAIL=<insert gcp user email>
+export USER_EMAIL=mario.fomacajr@geoambiente.com.br
 
 # project id for your NEW GCP project
-export PROJECT_ID=<insert project id>
+export PROJECT_ID=geoambientecloud-gee
 
 # the new project will need to be tied to a billing account, uncomment the line below for Argolis users and update value
 # export BILLING_ACCOUNT_ID=<insert billing account>

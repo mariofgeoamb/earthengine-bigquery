@@ -59,8 +59,8 @@ sleep 15
 
 # gcloud iam service-accounts keys create ~/eeKey.json --iam-account ${SERVICE_ACCOUNT}
 # cd ~/
-# cp eeKey.json ~/earth-engine-on-bigquery/src/cloud-functions/ndvi/
-# cp eeKey.json ~/earth-engine-on-bigquery/src/cloud-functions/temperature/
+# cp eeKey.json ~/earth-engine-on-bigquery/src/cloud-functions/ndvi_mf/
+# cp eeKey.json ~/earth-engine-on-bigquery/src/cloud-functions/temperature_mf/
 # cp eeKey.json ~/earth-engine-on-bigquery/src/cloud-functions/crop/
 
 # Cloud function setup for EE

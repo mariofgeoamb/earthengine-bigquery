@@ -1,3 +1,0 @@
-earthengine-api>=0.1.300
-shapely
-geojson
