@@ -36,20 +36,19 @@ def get_ndvi_month(request):
         replies.append(ee_ndvi)
       return json.dumps({'replies': [str(x) for x in ee.List(replies).getInfo()]})
 
-def farm_ndvi_calc(farm_aoi,year,month):
-  
-  first,last = calendar.monthrange(year, month)
-  first_date = datetime(year, month, 1)
-  startDate = first_date.strftime("%Y-%m-%d")
-  last_date = datetime(year, month, last)
-  endDate = last_date.strftime("%Y-%m-%d")
-  landsat8 = ee.ImageCollection("LANDSAT/LC08/C02/T1")
-  filtered = landsat8.filter(ee.Filter.date(startDate, endDate))
-  composite = ee.Algorithms.Landsat.simpleComposite(filtered)
-  ndviImage = composite.normalizedDifference(['B5', 'B4']).rename('NDVI')
-  ndviValue = ndviImage.reduceRegion(**{
-    'geometry': farm_aoi,
-    'reducer': ee.Reducer.mean(),
-    'scale': 30
-  }).get('NDVI'); 
-  return ndviValue
+def farm_ndvi_calc(farm_aoi, year, month):
+    first, last = calendar.monthrange(year, month)
+    first_date = datetime(year, month, 1)
+    startDate = first_date.strftime("%Y-%m-%d")
+    last_date = datetime(year, month, last)
+    endDate = last_date.strftime("%Y-%m-%d")
+    sentinel2 = ee.ImageCollection("COPERNICUS/S2_SR")
+    filtered = sentinel2.filter(ee.Filter.date(startDate, endDate))
+    composite = filtered.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20)).median()
+    ndviImage = composite.normalizedDifference(['B5', 'B4']).rename('NDVI')
+    ndviValue = ndviImage.reduceRegion(**{
+        'geometry': farm_aoi,
+        'reducer': ee.Reducer.median(),
+        'scale': 10
+    }).get('NDVI');
+    return ndviValue
